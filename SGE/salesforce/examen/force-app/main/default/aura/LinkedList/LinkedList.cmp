@@ -1,0 +1,30 @@
+<aura:component>
+    <aura:handler event="c:linkOwner" action="{!c.addOwner}"/>
+    <aura:handler event="c:linkPet" action="{!c.addPet}"/>
+   <aura:attribute name="data" type="Object[]"/>
+   <div>------------------START LINKED LIST-----------------------------</div>
+<table>
+<thead>
+    <tr>
+        <th>data1</th>
+        <th>data2</th>
+    </tr>
+</thead>
+<aura:iteration items="{!v.data}" var="row" indexVar="index">
+   <tr>
+       <td>
+           
+        {!row.ownerName}
+       </td>
+       <td>
+        {!row.ownerDni}
+       </td>
+       <td>
+           <input type="button" onclick="{!c.link}" value="link" data-value="{!index}"/>
+       </td>
+   </tr> 
+    </aura:iteration>
+</table>
+
+   <div>------------------END LINKED LIST-----------------------------</div>
+</aura:component>	

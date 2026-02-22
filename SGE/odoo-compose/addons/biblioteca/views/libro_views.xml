@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_libro_search" model="ir.ui.view">
+        <field name="name">biblioteca.libro.search</field>
+        <field name="model">biblioteca.libro</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Libros">
+                <field name="name" string="Título"/>
+                <field name="autor_id" string="Autor"/>
+                <field name="isbn" string="ISBN"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_libro_list" model="ir.ui.view">
+        <field name="name">biblioteca.libro.list</field>
+        <field name="model">biblioteca.libro</field>
+        <field name="arch" type="xml">
+            <list string="Libros">
+                <field name="name"/>
+                <field name="autor_id"/>
+                <field name="isbn"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_libro_form" model="ir.ui.view">
+        <field name="name">biblioteca.libro.form</field>
+        <field name="model">biblioteca.libro</field>
+        <field name="arch" type="xml">
+            <form string="Libro">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="autor_id"/>
+                        <field name="isbn"/>
+                        <field name="fecha_publicacion"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_biblioteca_libro" model="ir.actions.act_window">
+        <field name="name">Libros</field>
+        <field name="res_model">biblioteca.libro</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_libro_search"/>
+    </record>
+</odoo>

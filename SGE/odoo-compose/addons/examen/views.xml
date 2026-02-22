@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- WorkPlace Views -->
+        <record id="view_workplace_list" model="ir.ui.view">
+            <field name="name">examen.workplace.list</field>
+            <field name="model">examen.workplace</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="horario"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_workplace_form" model="ir.ui.view">
+            <field name="name">examen.workplace.form</field>
+            <field name="model">examen.workplace</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="horario"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+
+        <record id="action_workplace" model="ir.actions.act_window">
+            <field name="name">Lugares de Trabajo</field>
+            <field name="res_model">examen.workplace</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- SleepPlace Views -->
+
+
+        <record id="view_sleepplace_calendar" model="ir.ui.view">
+            <field name="name">examen.sleepplace.calendar</field>
+            <field name="model">examen.sleepplace</field>
+            <field name="arch" type="xml">
+                <calendar string="Lugares para Dormir" date_start="fecha">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="view_sleepplace_list" model="ir.ui.view">
+            <field name="name">examen.sleepplace.list</field>
+            <field name="model">examen.sleepplace</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="fecha"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_sleepplace_form" model="ir.ui.view">
+            <field name="name">examen.sleepplace.form</field>
+            <field name="model">examen.sleepplace</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="fecha"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sleepplace" model="ir.actions.act_window">
+            <field name="name">Lugares para Dormir</field>
+            <field name="res_model">examen.sleepplace</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Person Views -->
+        <record id="view_person_list" model="ir.ui.view">
+            <field name="name">examen.person.list</field>
+            <field name="model">examen.person</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="workplaces_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_person_form" model="ir.ui.view">
+            <field name="name">examen.person.form</field>
+            <field name="model">examen.person</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="workplaces_id" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_person" model="ir.actions.act_window">
+            <field name="name">Personas</field>
+            <field name="res_model">examen.person</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Hospital Views -->
+        <record id="view_hospital_list" model="ir.ui.view">
+            <field name="name">examen.hospital.list</field>
+            <field name="model">examen.hospital</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="horario"/>
+                    <field name="urgencias"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_hospital_form" model="ir.ui.view">
+            <field name="name">examen.hospital.form</field>
+            <field name="model">examen.hospital</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="horario"/>
+                            <field name="fecha"/>
+                            <field name="urgencias"/>
+                        </group>
+                        <separator string="Pacientes"/>
+                        <field name="patients_ids">
+                            <list>
+                                <field name="name"/>
+                            </list>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_hospital" model="ir.actions.act_window">
+            <field name="name">Hospitales</field>
+            <field name="res_model">examen.hospital</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Paciente Views -->
+
+        <!-- Paciente report -->
+        <record id="action_report_paciente" model="ir.actions.report">
+            <field name="name">Reporte de Paciente</field>
+            <field name="model">examen.paciente</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">examen.paciente_report_template</field>
+        </record>
+
+        <record id="view_paciente_search" model="ir.ui.view">
+            <field name="name">examen.paciente.search</field>
+            <field name="model">examen.paciente</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="hospital_id"/>
+                    <filter name="by_hospital" string="Por Hospital" context="{'group_by': 'hospital_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_paciente_kanban" model="ir.ui.view">
+            <field name="name">examen.paciente.kanban</field>
+            <field name="model">examen.paciente</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="hospital_id">
+                    <templates>
+                        <t t-name="card" class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <ul>
+                                    <li>Hospital: <field name="hospital_id"/></li>
+                                </ul>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_paciente_list" model="ir.ui.view">
+            <field name="name">examen.paciente.list</field>
+            <field name="model">examen.paciente</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="hospital_id"/>
+                    <button name="%(action_report_paciente)d" type="action" string="Reporte" class="btn-primary"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_paciente_form" model="ir.ui.view">
+            <field name="name">examen.paciente.form</field>
+            <field name="model">examen.paciente</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="%(action_report_paciente)d" type="action" string="Generar Reporte" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="hospital_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        
+
+        <record id="action_paciente" model="ir.actions.act_window">
+            <field name="name">Pacientes</field>
+            <field name="res_model">examen.paciente</field>
+            <field name="view_mode">list,form,kanban</field>
+        </record>
+
+        <!-- Empresa Views -->
+        <record id="view_empresa_list" model="ir.ui.view">
+            <field name="name">examen.empresa.list</field>
+            <field name="model">examen.empresa</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="horario"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_empresa_form" model="ir.ui.view">
+            <field name="name">examen.empresa.form</field>
+            <field name="model">examen.empresa</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="horario"/>
+                        </group>
+                        <separator string="Empleados"/>
+                        <field name="employees_ids">
+                            <list>
+                                <field name="name"/>
+                            </list>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_empresa" model="ir.actions.act_window">
+            <field name="name">Empresas</field>
+            <field name="res_model">examen.empresa</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Empleado Views -->
+        <record id="view_empleado_list" model="ir.ui.view">
+            <field name="name">examen.empleado.list</field>
+            <field name="model">examen.empleado</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="empresa_id"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_empleado_form" model="ir.ui.view">
+            <field name="name">examen.empleado.form</field>
+            <field name="model">examen.empleado</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="empresa_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_empleado" model="ir.actions.act_window">
+            <field name="name">Empleados</field>
+            <field name="res_model">examen.empleado</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Menus -->
+        <menuitem id="menu_examen_root" name="Examen" sequence="1"/>
+
+        <menuitem id="menu_workplace" name="Lugares de Trabajo" parent="menu_examen_root" action="action_workplace" sequence="1"/>
+        <menuitem id="menu_sleepplace" name="Lugares para Dormir" parent="menu_examen_root" action="action_sleepplace" sequence="2"/>
+        <menuitem id="menu_person" name="Personas" parent="menu_examen_root" action="action_person" sequence="3"/>
+        <menuitem id="menu_hospital" name="Hospitales" parent="menu_examen_root" action="action_hospital" sequence="4"/>
+        <menuitem id="menu_paciente" name="Pacientes" parent="menu_examen_root" action="action_paciente" sequence="5"/>
+        <menuitem id="menu_empresa" name="Empresas" parent="menu_examen_root" action="action_empresa" sequence="6"/>
+        <menuitem id="menu_empleado" name="Empleados" parent="menu_examen_root" action="action_empleado" sequence="7"/>
+
+    </data>
+</odoo>

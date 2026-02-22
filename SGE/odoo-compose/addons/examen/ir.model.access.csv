@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_workplace_user,examen.workplace.access,model_examen_workplace,base.group_user,1,1,1,1
+access_workplace_public,examen.workplace.access.public,model_examen_workplace,base.group_public,1,0,0,0
+access_sleepplace_user,examen.sleepplace.access,model_examen_sleepplace,base.group_user,1,1,1,1
+access_sleepplace_public,examen.sleepplace.access.public,model_examen_sleepplace,base.group_public,1,0,0,0
+access_person_user,examen.person.access,model_examen_person,base.group_user,1,1,1,1
+access_person_public,examen.person.access.public,model_examen_person,base.group_public,1,0,0,0
+access_hospital_user,examen.hospital.access,model_examen_hospital,base.group_user,1,1,1,1
+access_hospital_public,examen.hospital.access.public,model_examen_hospital,base.group_public,1,0,0,0
+access_paciente_user,examen.paciente.access,model_examen_paciente,base.group_user,1,1,1,1
+access_paciente_public,examen.paciente.access.public,model_examen_paciente,base.group_public,1,0,0,0
+access_empresa_user,examen.empresa.access,model_examen_empresa,base.group_user,1,1,1,1
+access_empresa_public,examen.empresa.access.public,model_examen_empresa,base.group_public,1,0,0,0
+access_empleado_user,examen.empleado.access,model_examen_empleado,base.group_user,1,1,1,1
+access_empleado_public,examen.empleado.access.public,model_examen_empleado,base.group_public,1,0,0,0

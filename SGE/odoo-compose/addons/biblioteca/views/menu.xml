@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_biblioteca_root" name="Biblioteca" sequence="10"/>
+
+    <menuitem id="menu_biblioteca_gestion" name="Gestión" parent="menu_biblioteca_root" sequence="10"/>
+    <menuitem id="menu_biblioteca_operaciones" name="Operaciones" parent="menu_biblioteca_root" sequence="20"/>
+
+    <menuitem id="menu_libro" name="Libros" parent="menu_biblioteca_gestion" action="action_biblioteca_libro" sequence="10"/>
+    <menuitem id="menu_autor" name="Autores" parent="menu_biblioteca_gestion" action="action_biblioteca_autor" sequence="20"/>
+    <menuitem id="menu_prestamo" name="Préstamos" parent="menu_biblioteca_operaciones" action="action_biblioteca_prestamo" sequence="10"/>
+</odoo>

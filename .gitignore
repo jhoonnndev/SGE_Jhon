@@ -1,0 +1,12 @@
+cat <<EOT >> .gitignore
+# Ignorar archivos temporales de Python
+__pycache__/
+*.pyc
+.DS_Store
+
+# Ignorar las carpetas de datos de Docker (estén donde estén dentro de Examen)
+db/
+pgdata/
+odoo_data/
+odoo_web/
+EOT

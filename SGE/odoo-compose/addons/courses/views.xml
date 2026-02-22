@@ -1,0 +1,268 @@
+<odoo>
+<!-- add course form -->
+
+<!-- add a course report -->
+    <record id="action_course_report" model="ir.actions.report">
+        <field name="name">Course Report</field>
+        <field name="model">course.course</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">courses.course_report_template</field>
+    </record>
+
+    <record id="view_course_form" model="ir.ui.view">
+        <field name="name">course.form</field>
+        <field name="model">course.course</field>
+        <field name="arch" type="xml">
+            <form string="Course Form">
+                <header>
+                    <button name="%(action_course_report)d" string="Descargar Informe" type="action" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="nombre"/>
+                        <field name="description"/>
+                        <field name="duration"/>
+                        <field name="course_act"/>
+                        <field name="students" />
+                        <field name="price"/>
+                        <field name="amount_discount"/>
+                        <field name="total_price" readonly="1"/>
+                        <field name="min_age"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+<!-- add student form -->
+    <record id="view_student_form" model="ir.ui.view">
+        <field name="name">student.form</field>
+        <field name="model">course.student</field>
+        <field name="arch" type="xml">
+            <form string="Student Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="dni"/>
+                        <field name="age"/>
+                        <field name="email"/>
+                        <field name="enrolled_courses" />
+                        <field name="sessions" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- add session form   -->
+    <record id="view_session_form" model="ir.ui.view">
+        <field name="name">session.form</field>
+        <field name="model">course.session</field>
+        <field name="arch" type="xml">
+            <form string="Session Form">
+                <sheet>
+                    <group>
+                        <field name="course_id"/>
+                        <field name="session_date"/>
+                        <field name="duration"/>
+                        <field name="instructor"/>
+                        <field name="students" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    
+
+<!-- add course list view   -->
+    <record id="view_course_list" model="ir.ui.view">
+        <field name="name">course.list</field>
+        <field name="model">course.course</field>
+        <field name="arch" type="xml">
+            <list string="Course List" >
+                <field name="nombre"/>
+                <field name="duration"/>
+                <field name="course_act" />
+                <field name="students" />
+                <button name="%(action_course_report)d" string="Descargar Informe" type="action" class="btn-primary"/>
+            </list>
+        </field>
+    </record>
+
+<!-- add course kanban view -->
+    <record id="view_course_kanban" model="ir.ui.view">
+        <field name="name">course.kanban</field>
+        <field name="model">course.course</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="min_age">
+                <field name="nombre"/>
+                <field name="duration"/>
+                <field name="price"/>
+                <field name="total_price"/>
+                <field name="course_act"/>
+                <field name="min_age"/>
+                <templates>
+                    <!-- Agrupación por edad mínima: +18 o menores -->
+                    <t t-name="kanban-box">
+                        <t t-set="group_header">
+                            <t t-if="group and group.value.raw_value &gt;= 18">
+                                +18
+                            </t>
+                            <t t-else="">
+                                Menores
+                            </t>
+                        </t>
+                    </t>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <strong><field name="nombre"/></strong>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <field name="description"/>
+                                    <div>Duration: <field name="duration"/> hours</div>
+                                    <t t-if="record.duration.raw_value &gt; 3">
+                                        <div>Price: <field name="price"/></div>
+                                    </t>
+                                    <div>Total: <field name="total_price"/></div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <field name="course_act" widget="boolean_toggle"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+<!-- add student list view -->
+    <record id="view_student_list" model="ir.ui.view">
+        <field name="name">student.list</field>
+        <field name="model">course.student</field>
+        <field name="arch" type="xml">
+            <list string="Student List" >
+                <field name="name"/>
+                <field name="age"/>
+                <field name="email"/>
+                <field name="enrolled_courses" />
+            </list>
+        </field>
+    </record>
+
+<!-- add student kanban view -->
+    <record id="view_student_kanban" model="ir.ui.view">
+        <field name="name">student.kanban</field>
+        <field name="model">course.student</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="dni"/>
+                <field name="age"/>
+                <field name="email"/>
+                <field name="enrolled_courses"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <strong><field name="name"/></strong>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div>DNI: <field name="dni"/></div>
+                                    <div>Age: <field name="age"/></div>
+                                    <div>Email: <field name="email"/></div>
+                                    <div>Course: <field name="enrolled_courses"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- add session list view   -->
+    <record id="view_session_list" model="ir.ui.view">
+        <field name="name">session.list</field>
+        <field name="model">course.session</field>
+        <field name="arch" type="xml">
+            <list string="Session List" >
+                <field name="course_id"/>
+                <field name="session_date"/>
+                <field name="duration"/>
+                <field name="instructor"/>
+                <field name="students" />
+            </list>
+        </field>
+    </record>
+
+<!-- add session kanban view -->
+    <record id="view_session_kanban" model="ir.ui.view">
+        <field name="name">session.kanban</field>
+        <field name="model">course.session</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="course_id"/>
+                <field name="session_date"/>
+                <field name="duration"/>
+                <field name="instructor"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <strong><field name="course_id"/></strong>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div>Date: <field name="session_date"/></div>
+                                    <div>Duration: <field name="duration"/> hours</div>
+                                    <div>Instructor: <field name="instructor"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+<!-- add course action -->
+    <record id="action_course" model="ir.actions.act_window">
+        <field name="name">Courses</field>
+        <field name="res_model">course.course</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="context">{"group_by": ["min_age"]}</field>
+    </record>
+
+<!-- add student action -->
+    <record id="action_student" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">course.student</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+    <!-- add session action -->
+    <record id="action_session" model="ir.actions.act_window">
+        <field name="name">Sessions</field>
+        <field name="res_model">course.session</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+<!-- add course menu item -->
+    <menuitem id="menu_course_root" name="Courses"/>
+    <menuitem id="menu_course_management" name="Course Management" 
+        parent="menu_course_root" action="action_course"/>
+    <menuitem id="menu_student_management" name="Student Management" 
+        parent="menu_course_root" action="action_student"/>
+    <menuitem id="menu_session_management" name="Session Management" 
+        parent="menu_course_root" action="action_session"/>
+
+</odoo>

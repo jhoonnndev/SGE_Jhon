@@ -1,0 +1,13 @@
+<odoo>
+    <template id="paciente_report_template">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <h2>Reporte de Paciente</h2>
+                    <p><strong>Nombre:</strong> <t t-esc="doc.name"/></p>
+                    <p><strong>Hospital:</strong> <t t-esc="doc.hospital_id.name"/></p>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
