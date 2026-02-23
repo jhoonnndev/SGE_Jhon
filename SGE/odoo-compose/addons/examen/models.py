@@ -27,13 +27,40 @@ class Person(models.Model):
 
 
 # clase Hospital que hereda con inherit de SleeepPlace y WorkPlace
+# class Hospital(models.Model):
+#    _name = 'examen.hospital'
+#    _description = 'Hospital'
+#    _inherit = ['examen.sleepplace', 'examen.workplace']
+
+#   urgencias = fields.Boolean(string="Tiene urgencias")
+#    patients_ids = fields.One2many('examen.paciente', 'hospital_id', string="Pacientes")
+
 class Hospital(models.Model):
     _name = 'examen.hospital'
     _description = 'Hospital'
-    _inherit = ['examen.sleepplace', 'examen.workplace']
+    
+    # 1. Definimos la delegación (diccionario)
+    _inherits = {
+        'examen.sleepplace': 'sleepplace_id',
+        'examen.workplace': 'workplace_id'
+    }
 
+    # 2. Es OBLIGATORIO crear los campos Many2one que hemos puesto arriba
+    sleepplace_id = fields.Many2one(
+        'examen.sleepplace', 
+        required=True, 
+        ondelete='cascade'
+    )
+    workplace_id = fields.Many2one(
+        'examen.workplace', 
+        required=True, 
+        ondelete='cascade'
+    )
+
+    # 3. Y luego ya tus campos normales
     urgencias = fields.Boolean(string="Tiene urgencias")
     patients_ids = fields.One2many('examen.paciente', 'hospital_id', string="Pacientes")
+
 
 # clase Paciente con un campo de relacion many2one con hospital
 class Paciente(models.Model):
